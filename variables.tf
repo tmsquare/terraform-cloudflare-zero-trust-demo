@@ -1,0 +1,652 @@
+#======================================
+# GCP Variables
+#======================================
+variable "gcp_project_id" {
+  description = "GCP project ID"
+  type        = string
+}
+
+variable "gcp_region" {
+  description = "GCP Region"
+  type        = string
+  default     = "europe-west3"
+}
+
+
+
+## Users
+variable "gcp_users" {
+  description = "List of all the GCP users"
+  type        = list(string)
+}
+
+variable "gcp_vm_default_user" {
+  description = "default vm user for GCP VM"
+  type        = string
+}
+
+variable "gcp_windows_user_name" {
+  description = "vm user name for GCP Windows VM"
+  type        = string
+}
+
+variable "gcp_windows_admin_password" {
+  description = "Password for Windows Server admin user in GCP"
+  type        = string
+  sensitive   = true
+}
+
+variable "gcp_service_account_email" {
+  description = "Service Account email for Terraform project in GCP"
+  type        = string
+}
+
+variable "gcp_vm_count" {
+  description = "number of vm not running cloudflared"
+  type        = number
+  default     = 1
+}
+
+
+
+
+## VM names
+variable "gcp_cloudflared_instance_name" {
+  description = "Name for the VM instance running cloudflared for infrastructure access demo"
+  type        = string
+}
+
+variable "gcp_cloudflared_windows_rdp_name" {
+  description = "Name for the VM instance running cloudflared and Windows RDP Server on GCP"
+  type        = string
+}
+
+variable "gcp_vm_name" {
+  description = "Name for the VM instance NOT running cloudflared"
+  type        = string
+}
+
+
+
+variable "gcp_warp_connector_vm_name" {
+  description = "Name of the GCP VM where WARP Connector is installed"
+  type        = string
+}
+
+
+
+
+
+variable "gcp_enable_oslogin" {
+  description = "Whether to enable OS Login"
+  type        = bool
+  default     = true
+}
+
+variable "gcp_machine_size" {
+  description = "size of the compute engine instance"
+  type        = string
+  default     = "e2-micro"
+}
+
+variable "gcp_windows_machine_size" {
+  description = "size of the compute engine instance for Windows specifically"
+  type        = string
+  default     = "e2-medium"
+}
+
+
+# Networking
+variable "gcp_ip_cidr_infra" {
+  description = "CIDR Range for GCP VMs running cloudflared"
+  type        = string
+}
+
+variable "gcp_ip_cidr_warp" {
+  description = "CIDR Range for GCP VMs running warp"
+  type        = string
+}
+
+variable "gcp_ip_cidr_windows_rdp" {
+  description = "CIDR Range for GCP VMs running cloudflared, Windows and RDP Server"
+  type        = string
+}
+
+
+
+
+
+#======================================
+# Cloudflare Variables
+#======================================
+
+variable "cloudflare_api_key" {
+  description = "Cloudflare API key"
+  type        = string
+  sensitive   = true
+}
+
+variable "cloudflare_email" {
+  description = "Cloudflare login email"
+  type        = string
+}
+
+variable "cloudflare_account_id" {
+  description = "Cloudflare account ID"
+  type        = string
+}
+
+variable "cloudflare_zone_id" {
+  description = "Cloudflare zone ID"
+  type        = string
+}
+
+
+####
+
+variable "cf_team_name" {
+  description = "Name of the Team in Cloudflare, essentially zero-trust org name"
+  type        = string
+}
+
+variable "cf_tunnel_name_gcp" {
+  description = "Name of the Cloudflare tunnel to GCP"
+  type        = string
+}
+
+variable "cf_tunnel_name_aws" {
+  description = "Name of the Cloudflare tunnel to AWS"
+  type        = string
+}
+
+variable "cf_windows_rdp_tunnel_name_gcp" {
+  description = "Name of the Cloudflared tunnel for Windows RDP Server GCP"
+  type        = string
+}
+
+variable "cf_tunnel_warp_connector_azure_id" {
+  description = "ID of the WARP Connector Tunnel manually created for Azure in UI"
+  type        = string
+}
+
+variable "cf_tunnel_warp_connector_gcp_id" {
+  description = "ID of the WARP Connector Tunnel manually created for GCP in UI"
+  type        = string
+}
+
+
+variable "cf_subdomain_ssh" {
+  description = "Name of the subdomain for ssh public hostname of tunnel"
+  type        = string
+}
+
+variable "cf_subdomain_web" {
+  description = "Name of the subdomain for web public hostname of tunnel"
+  type        = string
+}
+
+variable "cf_subdomain_web_sensitive" {
+  description = "Name of the subdomain for web sensitive public hostname of tunnel"
+  type        = string
+}
+
+variable "cf_browser_rendering_app_name" {
+  description = "Name of the Browser Rendering App in Cloudflare"
+  type        = string
+}
+
+variable "cf_infra_app_name" {
+  description = "Name of the Infrastructure App in Cloudflare"
+  type        = string
+}
+
+variable "cf_sensitive_web_app_name" {
+  description = "Name of the Sensitive web App in Cloudflare"
+  type        = string
+}
+
+variable "cf_administration_web_app_name" {
+  description = "Name of the Administration web App in Cloudflare"
+  type        = string
+}
+
+variable "cf_administration_web_app_port" {
+  description = "Name of the Sensitive web App in Cloudflare"
+  type        = number
+}
+
+variable "cf_sensitive_web_app_port" {
+  description = "Port for the Administration web App in Cloudflare"
+  type        = number
+}
+
+variable "cf_domain_controller_rdp_port" {
+  description = "Port for the Administration web App in Cloudflare"
+  type        = number
+}
+
+
+variable "cf_target_name" {
+  description = "Friendly name for the Target hostname in Infrastructure App"
+  type        = string
+}
+
+variable "cf_gateway_posture_id" {
+  description = "Gateway posture ID in Cloudflare"
+  type        = string
+  sensitive   = true
+}
+
+variable "cf_latest_macOS_version_posture_id" {
+  description = "Latest macOS version posture ID in Cloudflare"
+  type        = string
+  sensitive   = true
+}
+
+variable "cf_latest_windows_version_posture_id" {
+  description = "Latest Windows version posture ID in Cloudflare"
+  type        = string
+  sensitive   = true
+}
+
+variable "cf_latest_linux_kernel_version_posture_id" {
+  description = "Latest Linux Kernel version posture ID in Cloudflare"
+  type        = string
+  sensitive   = true
+}
+
+variable "cf_okta_identity_provider_id" {
+  description = "Okta Identity Provider ID in Cloudflare"
+  type        = string
+  sensitive   = true
+}
+
+variable "cf_onetimepin_identity_provider_id" {
+  description = "OneTime PIN identity provider ID in Cloudflare"
+  type        = string
+  sensitive   = true
+}
+
+variable "cf_azure_identity_provider_id" {
+  description = "Azure Entra ID identity provider ID in Cloudflare"
+  type        = string
+  sensitive   = true
+}
+
+variable "cf_azure_administrators_rule_group_id" {
+  description = "Azure Administrators Rule Group ID in Cloudflare"
+  type        = string
+  sensitive   = true
+}
+
+variable "cf_email_domain" {
+  description = "Email Domain used for email authentication in App policies"
+  type        = string
+}
+
+
+
+# device profiles
+variable "cf_device_os" {
+  description = "This is the OS you are running on your own client machine"
+  type        = string
+}
+
+variable "cf_osx_version_posture_rule_id" {
+  description = "Rule ID for the posture check on latest version of macos"
+  type        = string
+}
+
+variable "cf_default_cgnat_routes" {
+  description = "default cgnat routes"
+  type = list(object({
+    address     = string
+    description = string
+  }))
+  default = [{
+    address     = "100.64.0.0/10"
+    description = "Default CGNAT Range"
+  }]
+}
+
+variable "cf_custom_cgnat_routes" {
+  description = "List of custom CGNAT routes to add to the device profile"
+  type = list(object({
+    address     = string
+    description = string
+  }))
+}
+
+variable "cf_warp_cgnat_cidr" {
+  description = "default ip range for WARP when overriding local interface IP"
+  type        = string
+}
+
+variable "cf_default_fallback_domains" {
+  type = list(object({
+    suffix      = string
+    dns_server  = list(string)
+    description = string
+  }))
+}
+
+
+
+#======================================
+# OKTA Variables
+#======================================
+# Groups
+variable "okta_zerotrust_group_id" {
+  description = "ID for ZeroTrust group in Okta"
+  type        = string
+  sensitive   = true
+}
+
+variable "okta_contractors_group_id" {
+  description = "ID for Contractors group in Okta"
+  type        = string
+  sensitive   = true
+}
+
+variable "okta_infrastructureadmin_group_id" {
+  description = "ID for InfrastructureAdmin group in Okta"
+  type        = string
+  sensitive   = true
+}
+
+variable "okta_itadmin_group_id" {
+  description = "ID for ITAdmin group in Okta"
+  type        = string
+  sensitive   = true
+}
+
+variable "okta_salesengineering_group_id" {
+  description = "ID for SalesEngineering group in Okta"
+  type        = string
+  sensitive   = true
+}
+
+variable "okta_sales_group_id" {
+  description = "ID for Sales group in Okta"
+  type        = string
+  sensitive   = true
+}
+
+variable "okta_meraki_group_id" {
+  description = "ID for Meraki group in Okta"
+  type        = string
+  sensitive   = true
+}
+
+variable "okta_infrastructureadmin_saml_group_name" {
+  description = "SAML Group name for InfrastructureAdmin group"
+  type        = string
+}
+
+variable "okta_contractors_saml_group_name" {
+  description = "SAML Group name for Contractors group"
+  type        = string
+}
+
+variable "okta_salesengineering_saml_group_name" {
+  description = "SAML Group name for SalesEngineering group"
+  type        = string
+}
+
+variable "okta_sales_saml_group_name" {
+  description = "SAML Group name for Sales group"
+  type        = string
+}
+
+variable "okta_itadmin_saml_group_name" {
+  description = "SAML Group name for ITAdmin group"
+  type        = string
+}
+
+
+
+# User
+variable "okta_matthieu_user_id" {
+  description = "ID for Matthieu user in Okta"
+  type        = string
+  sensitive   = true
+}
+
+variable "okta_jose_user_id" {
+  description = "ID for Jose user in Okta"
+  type        = string
+  sensitive   = true
+}
+
+variable "okta_stephane_user_id" {
+  description = "ID for Stephane user in Okta"
+  type        = string
+  sensitive   = true
+}
+
+variable "okta_bob_user_login" {
+  description = "User login for bob, in an email format"
+  type        = string
+}
+
+variable "okta_jose_user_login" {
+  description = "User login for jose, in an email format"
+  type        = string
+}
+
+variable "okta_stephane_user_login" {
+  description = "User login for stephane, in an email format"
+  type        = string
+}
+
+variable "okta_matthieu_user_login" {
+  description = "User login for stephane, in an email format"
+  type        = string
+}
+
+
+
+#======================================
+# AWS Variables
+#======================================
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "eu-central-1"
+}
+
+variable "aws_ec2_instance_config_type" {
+  description = "type of EC2 instance"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "aws_ec2_instance_config_ami_id" {
+  description = "AMI ID representing the VM type and ID to be used"
+  type        = string
+  default     = "ami-086ecbd485d8bb032"
+}
+
+variable "aws_ec2_instsance_name" {
+  description = "Name of the EC2 instance"
+  type        = string
+}
+
+variable "aws_ec2_cloudflared_replica_count" {
+  description = "number of cloudflared replicas"
+  type        = number
+  default     = 1
+}
+
+variable "aws_ec2_cloudflared_name" {
+  description = "name of cloudflared replica"
+  type        = string
+}
+
+variable "aws_users" {
+  description = "List of all the AWS users"
+  type        = list(string)
+}
+
+variable "aws_vpc_cidr" {
+  description = "AWS vpc cidr, subnet for vpc in AWS"
+  type        = string
+}
+
+variable "aws_private_subnet_cidr" {
+  description = "AWS private subnet, subnet for VMs in AWS"
+  type        = string
+}
+
+variable "aws_public_subnet_cidr" {
+  description = "AWS public subnet"
+  type        = string
+}
+
+variable "aws_vm_default_user" {
+  description = "default user for AWS VM"
+  type        = string
+}
+
+
+
+#======================================
+# AZURE Variables
+#======================================
+
+variable "azure_default_tags" {
+  description = "default tags for Azure"
+  type        = map(string)
+  default = {
+    environment = "dev"
+    service     = "cloudflare-zero-trust-demo"
+    Owner       = "macharpe"
+  }
+}
+
+# Terraform local
+variable "azure_subscription_id" {
+  description = "Azure Subscription ID"
+  type        = string
+}
+
+variable "azure_developer1_name" {
+  description = "User 1 in Azure AD"
+  type        = string
+}
+
+variable "azure_developer2_name" {
+  description = "User 1 in Azure AD"
+  type        = string
+}
+
+variable "azure_sales1_name" {
+  description = "User 1 in Azure AD"
+  type        = string
+}
+
+variable "azure_sales2_name" {
+  description = "User 1 in Azure AD"
+  type        = string
+}
+
+variable "azure_user_password" {
+  description = "Password for Azure AD users"
+  type        = string
+  sensitive   = true
+}
+
+variable "azure_user_principal_domain" {
+  description = "Domain for users created in Azure AD"
+  type        = string
+}
+
+variable "azure_resource_group_location" {
+  description = "Location for all resources"
+  type        = string
+  default     = "Germany West Central"
+}
+
+variable "azure_vm_size" {
+  description = "Azure VM size"
+  type        = string
+  default     = "Standard_B1ls"
+}
+
+variable "azure_vm_admin_username" {
+  description = "Administrator username"
+  type        = string
+}
+
+variable "azure_vm_admin_password" {
+  description = "Administrator password (min 12 characters)"
+  type        = string
+  sensitive   = true
+}
+
+variable "azure_warp_connector_vm_name" {
+  description = "Name of the Azure VM where WARP Connector is installed"
+  type        = string
+}
+
+variable "azure_vm_name" {
+  description = "Azure VM name where WARP Connector is NOT installed"
+  type        = string
+}
+
+variable "azure_resource_group_name" {
+  description = "Ressource Group Name"
+  type        = string
+}
+
+variable "azure_vm_count" {
+  description = "number of Azure VM"
+  type        = number
+  default     = 1
+}
+
+variable "azure_address_prefixes" {
+  description = "Azure address prefix, subnet for VM in Azure"
+  type        = string
+}
+
+variable "azure_address_vnet" {
+  description = "Azure address vnet, subnet for vnet in Azure"
+  type        = string
+}
+
+variable "azure_matthieu_user_object_id" {
+  description = "Object ID in Azure for user Matthieu"
+  type        = string
+  sensitive   = true
+}
+
+variable "azure_public_dns_domain" {
+  description = "Azure Public DNS Domain"
+  type        = string
+}
+
+
+
+
+#======================================
+# Datadog Variables
+#======================================
+variable "datadog_api_key" {
+  description = "Datadog API Key from https://app.datadoghq.com/organization-settings/api-keys"
+  type        = string
+}
+
+variable "datadog_region" {
+  description = "location of the datadog region"
+  type        = string
+  default     = "datadoghq.eu"
+}
+
+#=====================================
+# AWS and Cloudflare Tag
+#=====================================
+variable "cf_aws_tag" {
+  description = "tag to be assigned to cloudflare application and aws environment"
+  type        = string
+}

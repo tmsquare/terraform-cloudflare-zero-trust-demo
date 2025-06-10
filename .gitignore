@@ -1,0 +1,47 @@
+# Ignore Terraform state files
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+*.bak
+*.backup
+
+# Ignore Terraform plan files
+*.tfplan
+
+# Ignore sensitive files
+*.tfvars
+*.tfvars.json
+
+# Ignore logs and other unnecessary files
+logs/
+*.log
+
+# Ignore Terraform working directory
+.terraform/
+0-documentation/
+1-workspace-conf/
+
+# Skip SSH keys
+modules/keys/out/*
+
+# Ignore operating system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE configuration files
+.vscode/
+.idea/
+
+# Ignore other unnecessary directories
+node_modules/
+vendor/
+
+# Ignore environment variable file
+.envrc
+
+# Ignore warp_subnets_including* files
+modules/warp-routing/output/*.json
+
+# irgnore Roadmap items
+security/aws-sg-cloudflared-tunnel-allow.tf

@@ -1,0 +1,30 @@
+name: Generate terraform docs
+
+on:
+  pull_request:  # Triggers on PR creation/update
+  push:
+    branches:
+      - main     # Triggers on merge to main
+
+# Add this to override default write-all permissions
+permissions: read-all
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: 📁 Checkout
+        uses: actions/checkout@v4 # TODO: should switch from version to commit SHA to increase security 
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: 📁 Render README.md file
+        uses: terraform-docs/gh-actions@v1.4.1 # TODO: should switch from version to commit SHA to increase security
+        with:
+          working-dir: .
+          output-file: README.md
+          output-method: inject
+          git-push: "true"
