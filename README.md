@@ -182,11 +182,10 @@ export TF_VAR_datadog_api_key=""</pre>
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.11.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
-| <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | ~> 3.3 |
+| <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | ~> 3.4 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.0 |
-| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | ~> 5.3.0 |
+| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | ~> 5.5.0 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | ~> 6.0 |
-| <a name="requirement_okta"></a> [okta](#requirement\_okta) | ~> 4.15 |
 
 ## Providers
 
@@ -203,7 +202,6 @@ export TF_VAR_datadog_api_key=""</pre>
 |------|--------|---------|
 | <a name="module_azure-ad"></a> [azure-ad](#module\_azure-ad) | ./modules/azure | n/a |
 | <a name="module_cloudflare"></a> [cloudflare](#module\_cloudflare) | ./modules/cloudflare | n/a |
-| <a name="module_okta"></a> [okta](#module\_okta) | ./modules/okta | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./modules/keys | n/a |
 | <a name="module_warp-routing"></a> [warp-routing](#module\_warp-routing) | ./modules/warp-routing | n/a |
 
@@ -355,7 +353,6 @@ export TF_VAR_datadog_api_key=""</pre>
 | <a name="input_gcp_windows_admin_password"></a> [gcp\_windows\_admin\_password](#input\_gcp\_windows\_admin\_password) | Password for Windows Server admin user in GCP | `string` | n/a | yes |
 | <a name="input_gcp_windows_machine_size"></a> [gcp\_windows\_machine\_size](#input\_gcp\_windows\_machine\_size) | size of the compute engine instance for Windows specifically | `string` | `"e2-medium"` | no |
 | <a name="input_gcp_windows_user_name"></a> [gcp\_windows\_user\_name](#input\_gcp\_windows\_user\_name) | vm user name for GCP Windows VM | `string` | n/a | yes |
-| <a name="input_okta_api_token"></a> [okta\_api\_token](#input\_okta\_api\_token) | API Token for Okta access | `string` | n/a | yes |
 | <a name="input_okta_bob_user_login"></a> [okta\_bob\_user\_login](#input\_okta\_bob\_user\_login) | User login for bob, in an email format | `string` | n/a | yes |
 | <a name="input_okta_contractors_group_id"></a> [okta\_contractors\_group\_id](#input\_okta\_contractors\_group\_id) | ID for Contractors group in Okta | `string` | n/a | yes |
 | <a name="input_okta_contractors_saml_group_name"></a> [okta\_contractors\_saml\_group\_name](#input\_okta\_contractors\_saml\_group\_name) | SAML Group name for Contractors group | `string` | n/a | yes |
@@ -368,18 +365,12 @@ export TF_VAR_datadog_api_key=""</pre>
 | <a name="input_okta_matthieu_user_id"></a> [okta\_matthieu\_user\_id](#input\_okta\_matthieu\_user\_id) | ID for Matthieu user in Okta | `string` | n/a | yes |
 | <a name="input_okta_matthieu_user_login"></a> [okta\_matthieu\_user\_login](#input\_okta\_matthieu\_user\_login) | User login for stephane, in an email format | `string` | n/a | yes |
 | <a name="input_okta_meraki_group_id"></a> [okta\_meraki\_group\_id](#input\_okta\_meraki\_group\_id) | ID for Meraki group in Okta | `string` | n/a | yes |
-| <a name="input_okta_org_name"></a> [okta\_org\_name](#input\_okta\_org\_name) | Okta Organization name | `string` | n/a | yes |
 | <a name="input_okta_sales_group_id"></a> [okta\_sales\_group\_id](#input\_okta\_sales\_group\_id) | ID for Sales group in Okta | `string` | n/a | yes |
 | <a name="input_okta_sales_saml_group_name"></a> [okta\_sales\_saml\_group\_name](#input\_okta\_sales\_saml\_group\_name) | SAML Group name for Sales group | `string` | n/a | yes |
 | <a name="input_okta_salesengineering_group_id"></a> [okta\_salesengineering\_group\_id](#input\_okta\_salesengineering\_group\_id) | ID for SalesEngineering group in Okta | `string` | n/a | yes |
 | <a name="input_okta_salesengineering_saml_group_name"></a> [okta\_salesengineering\_saml\_group\_name](#input\_okta\_salesengineering\_saml\_group\_name) | SAML Group name for SalesEngineering group | `string` | n/a | yes |
 | <a name="input_okta_stephane_user_id"></a> [okta\_stephane\_user\_id](#input\_okta\_stephane\_user\_id) | ID for Stephane user in Okta | `string` | n/a | yes |
 | <a name="input_okta_stephane_user_login"></a> [okta\_stephane\_user\_login](#input\_okta\_stephane\_user\_login) | User login for stephane, in an email format | `string` | n/a | yes |
-| <a name="input_okta_user_email"></a> [okta\_user\_email](#input\_okta\_user\_email) | Email Okta user | `string` | n/a | yes |
-| <a name="input_okta_user_first_name"></a> [okta\_user\_first\_name](#input\_okta\_user\_first\_name) | First name of Okta user | `string` | n/a | yes |
-| <a name="input_okta_user_last_name"></a> [okta\_user\_last\_name](#input\_okta\_user\_last\_name) | Last name of Okta user | `string` | n/a | yes |
-| <a name="input_okta_user_login"></a> [okta\_user\_login](#input\_okta\_user\_login) | Login Okta user | `string` | n/a | yes |
-| <a name="input_okta_user_password"></a> [okta\_user\_password](#input\_okta\_user\_password) | Login Okta user | `string` | n/a | yes |
 | <a name="input_okta_zerotrust_group_id"></a> [okta\_zerotrust\_group\_id](#input\_okta\_zerotrust\_group\_id) | ID for ZeroTrust group in Okta | `string` | n/a | yes |
 
 ## Outputs
