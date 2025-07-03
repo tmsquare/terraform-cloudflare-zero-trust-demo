@@ -39,26 +39,26 @@ _Last Updated: 12th of June 2025_
 ## 📊 **Project Statistics**
 
 ### 📁 **Core Project Overview**
-- **Core Project Size**: 18.3 MB
-- **Core Files**: 69 files *(focused on infrastructure and automation)*
-- **Core Directories**: 14 directories *(well-organized modular structure)*
+- **Core Project Size**: 18.0 MB
+- **Core Files**: 59 files *(focused on infrastructure and automation)*
+- **Core Directories**: 15 directories *(well-organized modular structure)*
 
 ### 📝 **Core Code Files**
-| File Type | Count | Before | After | Change | Purpose |
-|-----------|-------|--------|-------|--------|---------|
-| **Terraform (.tf)** | 30 | 4,597 | 4,214 | **-8.3%** | Infrastructure as Code |
-| **Templates (.tftpl, .tpl)** | 3 | 414 | 414 | 0% | Cloud-init & startup scripts |
-| **Python (.py)** | 2 | 255 | 255 | 0% | Subnet calculation & automation |
-| **Shell Scripts (.sh)** | 2 | 294 | 294 | 0% | Cleanup & maintenance |
-| **Batch Scripts (.cmd)** | 1 | 126 | 126 | 0% | Windows initialization |
-| **Total Core Code** | 38 | **5,686** | **5,303** | **-6.7%** | **Refactored codebase** |
+| File Type | Count | Lines | Purpose |
+|-----------|-------|-------|---------|
+| **Terraform (.tf)** | 30 | 4,309 | Infrastructure as Code |
+| **Templates (.tftpl, .tpl)** | 3 | 427 | Cloud-init & startup scripts |
+| **Python (.py)** | 2 | 255 | Subnet calculation & automation |
+| **Shell Scripts (.sh)** | 2 | 294 | Cleanup & maintenance |
+| **Batch Scripts (.cmd)** | 1 | 148 | Windows initialization |
+| **Total Core Code** | 38 | **5,433** | **Enhanced codebase** |
 
 <table>
 <tr>
 <td>
 
 **📁 Infrastructure Resources**
-- **313** total resources, modules & data sources
+- **157** total resources, modules & data sources
 - **4** custom modules
 - **188** configurable variables  
 - **30** Terraform files
@@ -83,7 +83,7 @@ _Last Updated: 12th of June 2025_
 - **Zero Trust** security model
 - **Identity integration** (Okta, Azure AD)
 - **WARP Connector** cross-cloud routing
-- **Browser-rendered** services
+- **Browser-rendered** services (SSH, VNC and RDP)
 
 </td>
 <td>
@@ -449,7 +449,6 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | [google_compute_address.cloud_nat_ip](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address) | resource |
 | [google_compute_firewall.allow_egress](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.allow_icmp_from_any](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
-| [google_compute_firewall.allow_rdp_from_my-ip](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.allow_ssh_from_my_ip](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.default_ssh_deny](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.deny_egress_ssh](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
@@ -512,6 +511,7 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | <a name="input_cf_aws_tag"></a> [cf\_aws\_tag](#input\_cf\_aws\_tag) | tag to be assigned to cloudflare application and aws environment | `string` | n/a | yes |
 | <a name="input_cf_azure_admin_rule_group_id"></a> [cf\_azure\_admin\_rule\_group\_id](#input\_cf\_azure\_admin\_rule\_group\_id) | Azure Administrators Rule Group ID in Cloudflare | `string` | n/a | yes |
 | <a name="input_cf_azure_identity_provider_id"></a> [cf\_azure\_identity\_provider\_id](#input\_cf\_azure\_identity\_provider\_id) | Azure Entra ID identity provider ID in Cloudflare | `string` | n/a | yes |
+| <a name="input_cf_browser_rdp_app_name"></a> [cf\_browser\_rdp\_app\_name](#input\_cf\_browser\_rdp\_app\_name) | Name of the RDP windows browser rendered App in Cloudflare | `string` | n/a | yes |
 | <a name="input_cf_browser_ssh_app_name"></a> [cf\_browser\_ssh\_app\_name](#input\_cf\_browser\_ssh\_app\_name) | Name of the Browser Rendering SSH App in Cloudflare | `string` | n/a | yes |
 | <a name="input_cf_browser_vnc_app_name"></a> [cf\_browser\_vnc\_app\_name](#input\_cf\_browser\_vnc\_app\_name) | Name of the Browser Rendering VNC App in Cloudflare | `string` | n/a | yes |
 | <a name="input_cf_custom_cgnat_routes"></a> [cf\_custom\_cgnat\_routes](#input\_cf\_custom\_cgnat\_routes) | List of custom CGNAT routes to add to the device profile | <pre>list(object({<br/>    address     = string<br/>    description = string<br/>  }))</pre> | n/a | yes |
@@ -528,11 +528,13 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | <a name="input_cf_otp_identity_provider_id"></a> [cf\_otp\_identity\_provider\_id](#input\_cf\_otp\_identity\_provider\_id) | OneTime PIN identity provider ID in Cloudflare | `string` | n/a | yes |
 | <a name="input_cf_sensitive_web_app_name"></a> [cf\_sensitive\_web\_app\_name](#input\_cf\_sensitive\_web\_app\_name) | Name of the Sensitive web App in Cloudflare | `string` | n/a | yes |
 | <a name="input_cf_sensitive_web_app_port"></a> [cf\_sensitive\_web\_app\_port](#input\_cf\_sensitive\_web\_app\_port) | Port for the Administration web App in Cloudflare | `number` | n/a | yes |
+| <a name="input_cf_subdomain_rdp"></a> [cf\_subdomain\_rdp](#input\_cf\_subdomain\_rdp) | Name of the subdomain for rdp browser rendered public hostname | `string` | n/a | yes |
 | <a name="input_cf_subdomain_ssh"></a> [cf\_subdomain\_ssh](#input\_cf\_subdomain\_ssh) | Name of the subdomain for ssh public hostname of tunnel | `string` | n/a | yes |
 | <a name="input_cf_subdomain_vnc"></a> [cf\_subdomain\_vnc](#input\_cf\_subdomain\_vnc) | Name of the subdomain for VNC public hostname of tunnel | `string` | n/a | yes |
 | <a name="input_cf_subdomain_web"></a> [cf\_subdomain\_web](#input\_cf\_subdomain\_web) | Name of the subdomain for web public hostname of tunnel | `string` | n/a | yes |
 | <a name="input_cf_subdomain_web_sensitive"></a> [cf\_subdomain\_web\_sensitive](#input\_cf\_subdomain\_web\_sensitive) | Name of the subdomain for web sensitive public hostname of tunnel | `string` | n/a | yes |
-| <a name="input_cf_target_name"></a> [cf\_target\_name](#input\_cf\_target\_name) | Friendly name for the Target hostname in Infrastructure App | `string` | n/a | yes |
+| <a name="input_cf_target_rdp_name"></a> [cf\_target\_rdp\_name](#input\_cf\_target\_rdp\_name) | Friendly name for the Target hostname in RDP windows browser rendered App | `string` | n/a | yes |
+| <a name="input_cf_target_ssh_name"></a> [cf\_target\_ssh\_name](#input\_cf\_target\_ssh\_name) | Friendly name for the Target hostname in Infrastructure App | `string` | n/a | yes |
 | <a name="input_cf_team_name"></a> [cf\_team\_name](#input\_cf\_team\_name) | Name of the Team in Cloudflare, essentially zero-trust org name | `string` | n/a | yes |
 | <a name="input_cf_tunnel_name_aws"></a> [cf\_tunnel\_name\_aws](#input\_cf\_tunnel\_name\_aws) | Name of the Cloudflare tunnel to AWS | `string` | n/a | yes |
 | <a name="input_cf_tunnel_name_gcp"></a> [cf\_tunnel\_name\_gcp](#input\_cf\_tunnel\_name\_gcp) | Name of the Cloudflare tunnel to GCP | `string` | n/a | yes |
