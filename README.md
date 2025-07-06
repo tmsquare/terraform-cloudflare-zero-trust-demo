@@ -39,39 +39,40 @@ _Last Updated: 12th of June 2025_
 ## 📊 **Project Statistics**
 
 ### 📁 **Core Project Overview**
-- **Core Project Size**: 18.0 MB
-- **Core Files**: 59 files *(focused on infrastructure and automation)*
+- **Core Project Size**: 20.7 MB
+- **Core Files**: 51 files *(focused on infrastructure and automation)*
 - **Core Directories**: 15 directories *(well-organized modular structure)*
 
 ### 📝 **Core Code Files**
 | File Type | Count | Lines | Purpose |
 |-----------|-------|-------|---------|
-| **Terraform (.tf)** | 30 | 4,309 | Infrastructure as Code |
-| **Templates (.tftpl, .tpl)** | 3 | 427 | Cloud-init & startup scripts |
+| **Terraform (.tf)** | 30 | 4,382 | Infrastructure as Code |
+| **Templates (.tftpl, .tpl)** | 3 | 424 | Cloud-init & startup scripts |
 | **Python (.py)** | 2 | 255 | Subnet calculation & automation |
 | **Shell Scripts (.sh)** | 2 | 294 | Cleanup & maintenance |
 | **Batch Scripts (.cmd)** | 1 | 148 | Windows initialization |
-| **Total Core Code** | 38 | **5,433** | **Enhanced codebase** |
+| **Total Core Code** | 38 | **5,503** | **Enhanced codebase** |
 
 <table>
 <tr>
 <td>
 
 **📁 Infrastructure Resources**
-- **157** total resources, modules & data sources
+- **161** total resources to be created
+- **9** data sources  
 - **4** custom modules
-- **188** configurable variables  
+- **196** configurable variables  
 - **30** Terraform files
 
 </td>
 <td>
 
 **☁️ Cloud Distribution**
-- **49** Cloudflare resources (35.8%)
-- **20** Google Cloud resources (14.6%)
-- **19** AWS resources (13.9%)
-- **14** Azure resources (10.2%)
-- **35** supporting resources (25.5%)
+- **30** Cloudflare resources (30.0%)
+- **24** AWS resources (24.0%)
+- **19** Google Cloud resources (19.0%)
+- **14** Azure resources (14.0%)
+- **13** supporting resources (13.0%)
 
 </td>
 </tr>
@@ -99,33 +100,6 @@ _Last Updated: 12th of June 2025_
 </tr>
 </table>
 
-## 🔧 **Recent Refactoring Achievements** *(June 2025)*
-
-This project underwent a comprehensive refactoring of the Cloudflare module, demonstrating best practices in Infrastructure as Code optimization:
-
-### **📊 Refactoring Impact Summary**
-| Component | Before | After | Reduction | Key Improvements |
-|-----------|--------|-------|-----------|------------------|
-| **DNS Records** | 47 lines | 25 lines | **-47%** | Single `for_each` loop replacing 4 duplicate resources |
-| **SAML Rule Groups** | 198 lines | 120 lines | **-40%** | Consolidated group management with dynamic loops |
-| **Access Policies** | 311 lines | 152 lines | **-51%** | One dynamic resource replacing 8 policy resources |
-| **Gateway Policies** | 211 lines | 139 lines | **-34%** | Centralized policy configuration with locals |
-| **Device Profiles** | 245 lines | 209 lines | **-15%** | Unified profile management system |
-| **Keys Module** | 143 lines | 99 lines | **-31%** | Unified SSH key generation with single for_each pattern |
-| **Overall Impact** | **2,113 lines** | **999 lines** | **-38%** | **Dramatically improved maintainability** |
-
-### **🎯 Key Refactoring Benefits**
-- **Maintainability**: Adding new policies, groups, or DNS records now requires only updating `locals` blocks
-- **Consistency**: Standardized patterns across all Cloudflare resources using `for_each` loops
-- **DRY Principles**: Eliminated code duplication while maintaining full functionality
-- **Scalability**: Infrastructure scales easily with minimal configuration changes
-- **Best Practices**: Demonstrates advanced Terraform patterns and modern IaC approaches
-
-### **✅ Quality Assurance**
-- All refactored code validates successfully with `terraform validate`
-- Comprehensive dependency management (resolved circular dependencies)
-- Maintained backward compatibility with existing variable structures
-- Zero functional regression - all original capabilities preserved
 
 ## 📚 Background Reading
 
@@ -479,15 +453,13 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | <a name="input_aws_ec2_cloudflared_name"></a> [aws\_ec2\_cloudflared\_name](#input\_aws\_ec2\_cloudflared\_name) | name of cloudflared replica | `string` | n/a | yes |
 | <a name="input_aws_ec2_instance_config_ami_id"></a> [aws\_ec2\_instance\_config\_ami\_id](#input\_aws\_ec2\_instance\_config\_ami\_id) | AMI ID representing the VM type and ID to be used | `string` | `"ami-086ecbd485d8bb032"` | no |
 | <a name="input_aws_ec2_instance_config_type"></a> [aws\_ec2\_instance\_config\_type](#input\_aws\_ec2\_instance\_config\_type) | type of EC2 instance | `string` | `"t3.micro"` | no |
-| <a name="input_aws_private_subnet_cidr"></a> [aws\_private\_subnet\_cidr](#input\_aws\_private\_subnet\_cidr) | AWS private subnet, subnet for VMs in AWS | `string` | n/a | yes |
-| <a name="input_aws_public_subnet_cidr"></a> [aws\_public\_subnet\_cidr](#input\_aws\_public\_subnet\_cidr) | AWS public subnet | `string` | n/a | yes |
+| <a name="input_aws_private_cidr"></a> [aws\_private\_cidr](#input\_aws\_private\_cidr) | AWS private subnet, subnet for VMs in AWS | `string` | n/a | yes |
+| <a name="input_aws_public_cidr"></a> [aws\_public\_cidr](#input\_aws\_public\_cidr) | AWS public subnet | `string` | n/a | yes |
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS region | `string` | `"eu-central-1"` | no |
 | <a name="input_aws_users"></a> [aws\_users](#input\_aws\_users) | List of all the AWS users | `list(string)` | n/a | yes |
 | <a name="input_aws_vm_default_user"></a> [aws\_vm\_default\_user](#input\_aws\_vm\_default\_user) | default user for AWS VM | `string` | n/a | yes |
 | <a name="input_aws_vnc_password"></a> [aws\_vnc\_password](#input\_aws\_vnc\_password) | default user for AWS VM | `string` | n/a | yes |
 | <a name="input_aws_vpc_cidr"></a> [aws\_vpc\_cidr](#input\_aws\_vpc\_cidr) | AWS vpc cidr, subnet for vpc in AWS | `string` | n/a | yes |
-| <a name="input_azure_address_prefixes"></a> [azure\_address\_prefixes](#input\_azure\_address\_prefixes) | Azure address prefix, subnet for VM in Azure | `string` | n/a | yes |
-| <a name="input_azure_address_vnet"></a> [azure\_address\_vnet](#input\_azure\_address\_vnet) | Azure address vnet, subnet for vnet in Azure | `string` | n/a | yes |
 | <a name="input_azure_default_tags"></a> [azure\_default\_tags](#input\_azure\_default\_tags) | default tags for Azure | `map(string)` | <pre>{<br/>  "Owner": "macharpe",<br/>  "environment": "dev",<br/>  "service": "cloudflare-zero-trust-demo"<br/>}</pre> | no |
 | <a name="input_azure_developer1_name"></a> [azure\_developer1\_name](#input\_azure\_developer1\_name) | User 1 in Azure AD | `string` | n/a | yes |
 | <a name="input_azure_developer2_name"></a> [azure\_developer2\_name](#input\_azure\_developer2\_name) | User 2 in Azure AD | `string` | n/a | yes |
@@ -497,6 +469,7 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | <a name="input_azure_resource_group_name"></a> [azure\_resource\_group\_name](#input\_azure\_resource\_group\_name) | Ressource Group Name | `string` | n/a | yes |
 | <a name="input_azure_sales1_name"></a> [azure\_sales1\_name](#input\_azure\_sales1\_name) | User 3 in Azure AD | `string` | n/a | yes |
 | <a name="input_azure_sales2_name"></a> [azure\_sales2\_name](#input\_azure\_sales2\_name) | User 4 in Azure AD | `string` | n/a | yes |
+| <a name="input_azure_subnet_cidr"></a> [azure\_subnet\_cidr](#input\_azure\_subnet\_cidr) | Azure address prefix, subnet for VM in Azure | `string` | n/a | yes |
 | <a name="input_azure_subscription_id"></a> [azure\_subscription\_id](#input\_azure\_subscription\_id) | Azure Subscription ID | `string` | n/a | yes |
 | <a name="input_azure_user_password"></a> [azure\_user\_password](#input\_azure\_user\_password) | Password for Azure AD users | `string` | n/a | yes |
 | <a name="input_azure_user_principal_domain"></a> [azure\_user\_principal\_domain](#input\_azure\_user\_principal\_domain) | Domain for users created in Azure AD | `string` | n/a | yes |
@@ -505,6 +478,7 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | <a name="input_azure_vm_count"></a> [azure\_vm\_count](#input\_azure\_vm\_count) | number of Azure VM | `number` | `1` | no |
 | <a name="input_azure_vm_name"></a> [azure\_vm\_name](#input\_azure\_vm\_name) | Azure VM name where WARP Connector is NOT installed | `string` | n/a | yes |
 | <a name="input_azure_vm_size"></a> [azure\_vm\_size](#input\_azure\_vm\_size) | Azure VM size | `string` | `"Standard_B1ls"` | no |
+| <a name="input_azure_vnet_cidr"></a> [azure\_vnet\_cidr](#input\_azure\_vnet\_cidr) | Azure address vnet, subnet for vnet in Azure | `string` | n/a | yes |
 | <a name="input_azure_warp_vm_name"></a> [azure\_warp\_vm\_name](#input\_azure\_warp\_vm\_name) | Name of the Azure VM where WARP Connector is installed | `string` | n/a | yes |
 | <a name="input_cf_admin_web_app_name"></a> [cf\_admin\_web\_app\_name](#input\_cf\_admin\_web\_app\_name) | Name of the Administration web App in Cloudflare | `string` | n/a | yes |
 | <a name="input_cf_admin_web_app_port"></a> [cf\_admin\_web\_app\_port](#input\_cf\_admin\_web\_app\_port) | Port for the Administration web App in Cloudflare | `number` | n/a | yes |
@@ -551,9 +525,7 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | <a name="input_datadog_region"></a> [datadog\_region](#input\_datadog\_region) | location of the datadog region | `string` | `"datadoghq.eu"` | no |
 | <a name="input_gcp_cloudflared_vm_name"></a> [gcp\_cloudflared\_vm\_name](#input\_gcp\_cloudflared\_vm\_name) | Name for the VM instance running cloudflared for infrastructure access demo | `string` | n/a | yes |
 | <a name="input_gcp_enable_oslogin"></a> [gcp\_enable\_oslogin](#input\_gcp\_enable\_oslogin) | Whether to enable OS Login | `bool` | `true` | no |
-| <a name="input_gcp_ip_cidr_infra"></a> [gcp\_ip\_cidr\_infra](#input\_gcp\_ip\_cidr\_infra) | CIDR Range for GCP VMs running cloudflared | `string` | n/a | yes |
-| <a name="input_gcp_ip_cidr_warp"></a> [gcp\_ip\_cidr\_warp](#input\_gcp\_ip\_cidr\_warp) | CIDR Range for GCP VMs running warp | `string` | n/a | yes |
-| <a name="input_gcp_ip_cidr_windows_rdp"></a> [gcp\_ip\_cidr\_windows\_rdp](#input\_gcp\_ip\_cidr\_windows\_rdp) | CIDR Range for GCP VMs running cloudflared, Windows and RDP Server | `string` | n/a | yes |
+| <a name="input_gcp_infra_cidr"></a> [gcp\_infra\_cidr](#input\_gcp\_infra\_cidr) | CIDR Range for GCP VMs running cloudflared | `string` | n/a | yes |
 | <a name="input_gcp_machine_size"></a> [gcp\_machine\_size](#input\_gcp\_machine\_size) | size of the compute engine instance | `string` | `"e2-micro"` | no |
 | <a name="input_gcp_project_id"></a> [gcp\_project\_id](#input\_gcp\_project\_id) | GCP project ID | `string` | n/a | yes |
 | <a name="input_gcp_region"></a> [gcp\_region](#input\_gcp\_region) | GCP Region | `string` | `"europe-west3"` | no |
@@ -562,9 +534,11 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | <a name="input_gcp_vm_count"></a> [gcp\_vm\_count](#input\_gcp\_vm\_count) | number of vm not running cloudflared | `number` | `1` | no |
 | <a name="input_gcp_vm_default_user"></a> [gcp\_vm\_default\_user](#input\_gcp\_vm\_default\_user) | default vm user for GCP VM | `string` | n/a | yes |
 | <a name="input_gcp_vm_name"></a> [gcp\_vm\_name](#input\_gcp\_vm\_name) | Name for the VM instance NOT running cloudflared | `string` | n/a | yes |
+| <a name="input_gcp_warp_cidr"></a> [gcp\_warp\_cidr](#input\_gcp\_warp\_cidr) | CIDR Range for GCP VMs running warp | `string` | n/a | yes |
 | <a name="input_gcp_warp_connector_vm_name"></a> [gcp\_warp\_connector\_vm\_name](#input\_gcp\_warp\_connector\_vm\_name) | Name of the GCP VM where WARP Connector is installed | `string` | n/a | yes |
 | <a name="input_gcp_windows_admin_password"></a> [gcp\_windows\_admin\_password](#input\_gcp\_windows\_admin\_password) | Password for Windows Server admin user in GCP | `string` | n/a | yes |
 | <a name="input_gcp_windows_machine_size"></a> [gcp\_windows\_machine\_size](#input\_gcp\_windows\_machine\_size) | size of the compute engine instance for Windows specifically | `string` | `"e2-medium"` | no |
+| <a name="input_gcp_windows_rdp_cidr"></a> [gcp\_windows\_rdp\_cidr](#input\_gcp\_windows\_rdp\_cidr) | CIDR Range for GCP VMs running cloudflared, Windows and RDP Server | `string` | n/a | yes |
 | <a name="input_gcp_windows_rdp_vm_name"></a> [gcp\_windows\_rdp\_vm\_name](#input\_gcp\_windows\_rdp\_vm\_name) | Name for the VM instance running cloudflared and Windows RDP Server on GCP | `string` | n/a | yes |
 | <a name="input_gcp_windows_user_name"></a> [gcp\_windows\_user\_name](#input\_gcp\_windows\_user\_name) | vm user name for GCP Windows VM | `string` | n/a | yes |
 | <a name="input_okta_bob_user_linux_password"></a> [okta\_bob\_user\_linux\_password](#input\_okta\_bob\_user\_linux\_password) | Linux password for user bob in EC2 instance | `string` | n/a | yes |
