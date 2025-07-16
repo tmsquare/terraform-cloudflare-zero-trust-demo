@@ -4,11 +4,10 @@ A comprehensive, production-ready Terraform infrastructure that demonstrates Clo
 
 [![Generate terraform docs on main](https://github.com/macharpe/terraform-cloudflare-zero-trust-demo/actions/workflows/documentation.yml/badge.svg)](https://github.com/macharpe/terraform-cloudflare-zero-trust-demo/actions/workflows/documentation.yml)
 [![Last Commit](https://img.shields.io/github/last-commit/macharpe/terraform-cloudflare-zero-trust-demo)](https://github.com/macharpe/terraform-cloudflare-zero-trust-demo/commits/main)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: GPL v3](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](LICENSE)
 [![infracost](https://img.shields.io/endpoint?url=https://dashboard.api.infracost.io/shields/json/f9641cfc-17c4-406f-8f64-5038484adbba/repos/8bce00d3-4748-4e36-b419-a8dde3817846/branch/4a9ced8a-0d3d-47a1-87f1-ccf012dfba79)](https://dashboard.infracost.io/org/macharpe/repos/8bce00d3-4748-4e36-b419-a8dde3817846?tab=branches)
 [![Terraform](https://img.shields.io/badge/terraform-1.11.0+-blueviolet?logo=terraform)](https://www.terraform.io/)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-Zero%20Trust-orange?logo=cloudflare)](https://www.cloudflare.com/zero-trust/)
-[![Zero Trust](https://img.shields.io/badge/security-Zero%20Trust-red?logo=security)](https://www.cloudflare.com/zero-trust/)
 [![Multi-Cloud](https://img.shields.io/badge/multi--cloud-AWS%20%7C%20Azure%20%7C%20GCP-blue)](https://github.com/macharpe/terraform-cloudflare-zero-trust-demo)
 [![Monitoring](https://img.shields.io/badge/monitoring-Datadog-purple?logo=datadog)](https://www.datadoghq.com/)
 
@@ -40,28 +39,28 @@ _Last Updated: 12th of June 2025_
 
 ### 📁 **Core Project Overview**
 - **Core Project Size**: 20.7 MB
-- **Core Files**: 51 files *(focused on infrastructure and automation)*
+- **Core Files**: 44 files *(focused on infrastructure and automation)*
 - **Core Directories**: 15 directories *(well-organized modular structure)*
 
 ### 📝 **Core Code Files**
 | File Type | Count | Lines | Purpose |
 |-----------|-------|-------|---------|
-| **Terraform (.tf)** | 31 | 4,586 | Infrastructure as Code |
+| **Terraform (.tf)** | 30 | 4,399 | Infrastructure as Code |
 | **Templates (.tftpl, .tpl)** | 3 | 780 | Cloud-init & startup scripts |
 | **Python (.py)** | 8 | 1,158 | Automation & utilities |
 | **Shell Scripts (.sh)** | 2 | 294 | Cleanup & maintenance |
 | **Batch Scripts (.cmd)** | 1 | 149 | Windows initialization |
-| **Total Core Code** | 45 | **6,967** | **Enhanced monitoring & diagnostics** |
+| **Total Core Code** | 44 | **6,780** | **Production-ready infrastructure** |
 
 <table>
 <tr>
 <td>
 
 **📁 Infrastructure Resources**
-- **161** total resources deployed
-- **9** data sources  
+- **87** total resources deployed
+- **12** data sources  
 - **4** custom modules
-- **196** configurable variables  
+- **184** configurable variables  
 - **30** Terraform files
 
 </td>
@@ -233,24 +232,43 @@ Configure device posture checks as shown:
 
 ### 4. Configure terraform.tfvars
 
-Fill in all required variables in `terraform.tfvars`. Variables marked with `# Manually retrieved` need to be obtained from your existing accounts:
+Copy `terraform.tfvars.example` to `terraform.tfvars` and customize the values for your environment:
+
+```bash
+cp terraform.tfvars.example terraform.tfvars
+```
+
+The configuration file is organized into logical sections for easy navigation:
+
+- **🏗️ GCP Configuration**: Project settings, VM configurations, and networking
+- **☁️ Cloudflare Configuration**: Tunnels, WARP connectors, applications, and security policies  
+- **🔐 Okta Configuration**: Identity provider groups and user management
+- **⚡ AWS Configuration**: EC2 instances, networking, and security groups
+- **🔷 Azure Configuration**: Resource groups, VMs, and Active Directory integration
+- **📊 Datadog Configuration**: Monitoring and observability settings
+
+**Key variables requiring manual configuration:**
 
 ```hcl
-# Cloudflare Identity Providers (manually retrieved)
-cf_gateway_posture_id                     = "your_gateway_posture_id"
-cf_macos_posture_id                       = "your_macos_posture_id"
-cf_windows_posture_id                     = "your_windows_posture_id"
-cf_linux_posture_id                       = "your_linux_posture_id"
-cf_okta_identity_provider_id              = "your_okta_provider_id"
-cf_otp_identity_provider_id               = "your_otp_provider_id"
-cf_azure_identity_provider_id             = "your_azure_provider_id"
+# WARP Connector Tunnels - Sensitive: manually retrieved from Cloudflare dashboard
+cf_warp_tunnel_azure_id = "your_azure_warp_tunnel_id"
+cf_warp_tunnel_gcp_id   = "your_gcp_warp_tunnel_id"
 
-# Okta Groups (manually retrieved)
-okta_zerotrust_group_id           = "your_zerotrust_group_id"
-okta_contractors_group_id         = "your_contractors_group_id"
-okta_infrastructureadmin_group_id = "your_infra_admin_group_id"
-# ... (continue with other variables)
+# Identity Providers - Sensitive: manually retrieved from Cloudflare dashboard
+cf_okta_identity_provider_id  = "your_okta_provider_id"
+cf_azure_identity_provider_id = "your_azure_provider_id"
+
+# Device Posture - Sensitive: manually retrieved from Cloudflare dashboard
+cf_gateway_posture_id = "your_gateway_posture_id"
+cf_macos_posture_id   = "your_macos_posture_id"
+cf_windows_posture_id = "your_windows_posture_id"
+
+# SAML Group IDs - Sensitive: manually retrieved from Okta
+okta_infra_admin_group_id = "your_infra_admin_group_id"
+okta_contractors_group_id = "your_contractors_group_id"
 ```
+
+💡 **Tip**: Look for variables marked as `Sensitive:` - these require values from your existing accounts and dashboards.
 
 ### 5. Deploy Infrastructure
 
@@ -458,7 +476,7 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS region | `string` | `"eu-central-1"` | no |
 | <a name="input_aws_users"></a> [aws\_users](#input\_aws\_users) | List of all the AWS users | `list(string)` | n/a | yes |
 | <a name="input_aws_vm_default_user"></a> [aws\_vm\_default\_user](#input\_aws\_vm\_default\_user) | default user for AWS VM | `string` | n/a | yes |
-| <a name="input_aws_vnc_password"></a> [aws\_vnc\_password](#input\_aws\_vnc\_password) | default user for AWS VM | `string` | n/a | yes |
+| <a name="input_aws_vnc_password"></a> [aws\_vnc\_password](#input\_aws\_vnc\_password) | VNC password for AWS VM | `string` | n/a | yes |
 | <a name="input_aws_vpc_cidr"></a> [aws\_vpc\_cidr](#input\_aws\_vpc\_cidr) | AWS vpc cidr, subnet for vpc in AWS | `string` | n/a | yes |
 | <a name="input_azure_default_tags"></a> [azure\_default\_tags](#input\_azure\_default\_tags) | default tags for Azure | `map(string)` | <pre>{<br/>  "Owner": "macharpe",<br/>  "environment": "dev",<br/>  "service": "cloudflare-zero-trust-demo"<br/>}</pre> | no |
 | <a name="input_azure_developer1_name"></a> [azure\_developer1\_name](#input\_azure\_developer1\_name) | User 1 in Azure AD | `string` | n/a | yes |
@@ -501,7 +519,7 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | <a name="input_cf_osx_version_posture_rule_id"></a> [cf\_osx\_version\_posture\_rule\_id](#input\_cf\_osx\_version\_posture\_rule\_id) | Rule ID for the posture check on latest version of macos | `string` | n/a | yes |
 | <a name="input_cf_otp_identity_provider_id"></a> [cf\_otp\_identity\_provider\_id](#input\_cf\_otp\_identity\_provider\_id) | OneTime PIN identity provider ID in Cloudflare | `string` | n/a | yes |
 | <a name="input_cf_sensitive_web_app_name"></a> [cf\_sensitive\_web\_app\_name](#input\_cf\_sensitive\_web\_app\_name) | Name of the Sensitive web App in Cloudflare | `string` | n/a | yes |
-| <a name="input_cf_sensitive_web_app_port"></a> [cf\_sensitive\_web\_app\_port](#input\_cf\_sensitive\_web\_app\_port) | Port for the Administration web App in Cloudflare | `number` | n/a | yes |
+| <a name="input_cf_sensitive_web_app_port"></a> [cf\_sensitive\_web\_app\_port](#input\_cf\_sensitive\_web\_app\_port) | Port for the Sensitive web App in Cloudflare | `number` | n/a | yes |
 | <a name="input_cf_subdomain_rdp"></a> [cf\_subdomain\_rdp](#input\_cf\_subdomain\_rdp) | Name of the subdomain for rdp browser rendered public hostname | `string` | n/a | yes |
 | <a name="input_cf_subdomain_ssh"></a> [cf\_subdomain\_ssh](#input\_cf\_subdomain\_ssh) | Name of the subdomain for ssh public hostname of tunnel | `string` | n/a | yes |
 | <a name="input_cf_subdomain_vnc"></a> [cf\_subdomain\_vnc](#input\_cf\_subdomain\_vnc) | Name of the subdomain for VNC public hostname of tunnel | `string` | n/a | yes |
@@ -543,24 +561,12 @@ This project is provided as-is for educational and demonstration purposes. Pleas
 | <a name="input_gcp_windows_user_name"></a> [gcp\_windows\_user\_name](#input\_gcp\_windows\_user\_name) | vm user name for GCP Windows VM | `string` | n/a | yes |
 | <a name="input_okta_bob_user_linux_password"></a> [okta\_bob\_user\_linux\_password](#input\_okta\_bob\_user\_linux\_password) | Linux password for user bob in EC2 instance | `string` | n/a | yes |
 | <a name="input_okta_bob_user_login"></a> [okta\_bob\_user\_login](#input\_okta\_bob\_user\_login) | User login for bob, in an email format | `string` | n/a | yes |
-| <a name="input_okta_contractors_group_id"></a> [okta\_contractors\_group\_id](#input\_okta\_contractors\_group\_id) | ID for Contractors group in Okta | `string` | n/a | yes |
 | <a name="input_okta_contractors_saml_group_name"></a> [okta\_contractors\_saml\_group\_name](#input\_okta\_contractors\_saml\_group\_name) | SAML Group name for Contractors group | `string` | n/a | yes |
-| <a name="input_okta_infra_admin_group_id"></a> [okta\_infra\_admin\_group\_id](#input\_okta\_infra\_admin\_group\_id) | ID for InfrastructureAdmin group in Okta | `string` | n/a | yes |
 | <a name="input_okta_infra_admin_saml_group_name"></a> [okta\_infra\_admin\_saml\_group\_name](#input\_okta\_infra\_admin\_saml\_group\_name) | SAML Group name for InfrastructureAdmin group | `string` | n/a | yes |
-| <a name="input_okta_itadmin_group_id"></a> [okta\_itadmin\_group\_id](#input\_okta\_itadmin\_group\_id) | ID for ITAdmin group in Okta | `string` | n/a | yes |
 | <a name="input_okta_itadmin_saml_group_name"></a> [okta\_itadmin\_saml\_group\_name](#input\_okta\_itadmin\_saml\_group\_name) | SAML Group name for ITAdmin group | `string` | n/a | yes |
-| <a name="input_okta_jose_user_id"></a> [okta\_jose\_user\_id](#input\_okta\_jose\_user\_id) | ID for Jose user in Okta | `string` | n/a | yes |
-| <a name="input_okta_jose_user_login"></a> [okta\_jose\_user\_login](#input\_okta\_jose\_user\_login) | User login for jose, in an email format | `string` | n/a | yes |
-| <a name="input_okta_matthieu_user_id"></a> [okta\_matthieu\_user\_id](#input\_okta\_matthieu\_user\_id) | ID for Matthieu user in Okta | `string` | n/a | yes |
-| <a name="input_okta_matthieu_user_login"></a> [okta\_matthieu\_user\_login](#input\_okta\_matthieu\_user\_login) | User login for stephane, in an email format | `string` | n/a | yes |
-| <a name="input_okta_meraki_group_id"></a> [okta\_meraki\_group\_id](#input\_okta\_meraki\_group\_id) | ID for Meraki group in Okta | `string` | n/a | yes |
-| <a name="input_okta_sales_eng_group_id"></a> [okta\_sales\_eng\_group\_id](#input\_okta\_sales\_eng\_group\_id) | ID for SalesEngineering group in Okta | `string` | n/a | yes |
+| <a name="input_okta_matthieu_user_login"></a> [okta\_matthieu\_user\_login](#input\_okta\_matthieu\_user\_login) | User login for matthieu, in an email format | `string` | n/a | yes |
 | <a name="input_okta_sales_eng_saml_group_name"></a> [okta\_sales\_eng\_saml\_group\_name](#input\_okta\_sales\_eng\_saml\_group\_name) | SAML Group name for SalesEngineering group | `string` | n/a | yes |
-| <a name="input_okta_sales_group_id"></a> [okta\_sales\_group\_id](#input\_okta\_sales\_group\_id) | ID for Sales group in Okta | `string` | n/a | yes |
 | <a name="input_okta_sales_saml_group_name"></a> [okta\_sales\_saml\_group\_name](#input\_okta\_sales\_saml\_group\_name) | SAML Group name for Sales group | `string` | n/a | yes |
-| <a name="input_okta_stephane_user_id"></a> [okta\_stephane\_user\_id](#input\_okta\_stephane\_user\_id) | ID for Stephane user in Okta | `string` | n/a | yes |
-| <a name="input_okta_stephane_user_login"></a> [okta\_stephane\_user\_login](#input\_okta\_stephane\_user\_login) | User login for stephane, in an email format | `string` | n/a | yes |
-| <a name="input_okta_zerotrust_group_id"></a> [okta\_zerotrust\_group\_id](#input\_okta\_zerotrust\_group\_id) | ID for ZeroTrust group in Okta | `string` | n/a | yes |
 
 ## Outputs
 
